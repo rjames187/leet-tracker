@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Table, Checkbox, Tag, Space, Typography } from 'antd';
+import type { SortOrder } from 'antd/es/table/interface';
 import { CheckOutlined } from '@ant-design/icons';
 
 const { Title } = Typography;
@@ -23,7 +24,7 @@ const initialProblems = [
   { id: 15, name: "3Sum", rating: 1700, difficulty: "Medium", completed: false }
 ];
 
-const LeetCodeTable = () => {
+const LeetTable = () => {
   const [problems, setProblems] = useState(initialProblems);
 
   // Handle checkbox toggle
@@ -52,7 +53,7 @@ const LeetCodeTable = () => {
       ),
       // Custom sorter for boolean values
       sorter: (a: any, b: any) => a.completed - b.completed,
-      sortDirections: ['ascend', 'descend'],
+      sortDirections: ['ascend', 'descend'] as SortOrder[],
     },
     {
       title: 'Problem Name',
@@ -68,7 +69,7 @@ const LeetCodeTable = () => {
       ),
       // Enable sorting by name
       sorter: (a: any, b: any) => a.name.localeCompare(b.name),
-      sortDirections: ['ascend', 'descend'],
+      sortDirections: ['ascend', 'descend'] as SortOrder[],
     },
     {
       title: 'Rating',
@@ -76,27 +77,27 @@ const LeetCodeTable = () => {
       key: 'rating',
       width: 120,
       // Enable sorting by rating (numeric)
-      sorter: (a, b) => a.rating - b.rating,
-      sortDirections: ['ascend', 'descend'],
+      sorter: (a: any, b: any) => a.rating - b.rating,
+      sortDirections: ['ascend', 'descend'] as SortOrder[],
       // Set default sort order
-      defaultSortOrder: 'ascend',
+      defaultSortOrder: 'ascend' as SortOrder,
     },
     {
       title: 'Difficulty',
       dataIndex: 'difficulty',
       key: 'difficulty',
       width: 120,
-      render: (difficulty) => {
+      render: (difficulty: string) => {
         const color = difficulty === 'Easy' ? 'green' : 
                      difficulty === 'Medium' ? 'orange' : 'red';
         return <Tag color={color}>{difficulty}</Tag>;
       },
       // Custom sorter for difficulty levels
-      sorter: (a, b) => {
+      sorter: (a: any, b: any) => {
         const order = { 'Easy': 1, 'Medium': 2, 'Hard': 3 };
-        return order[a.difficulty] - order[b.difficulty];
+        return order[a.difficulty as 'Easy' | 'Medium' | 'Hard'] - order[b.difficulty as 'Easy' | 'Medium' | 'Hard'];
       },
-      sortDirections: ['ascend', 'descend'],
+      sortDirections: ['ascend', 'descend'] as SortOrder[],
     }
   ];
 
