@@ -1,4 +1,3 @@
-
 import './App.css'
 import LeetTable from './components/LeetTable'
 

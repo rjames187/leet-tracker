@@ -133,7 +133,7 @@ const LeetCodeTable = () => {
   ];
 
   return (
-    <div style={{ padding: '24px', backgroundColor: '#f5f5f5', minHeight: '100vh' }}>
+    <div style={{ padding: '24px', backgroundColor: '#f5f5f5', minHeight: '100vh', minWidth: '70vw' }}>
       <Title level={2}>LeetCode Problems Tracker</Title>
       
       {/* Filter Controls */}
@@ -237,13 +237,6 @@ const LeetCodeTable = () => {
         }}
         size="middle"
         bordered
-        // Optional: Add row selection for bulk operations
-        // rowSelection={{
-        //   type: 'checkbox',
-        //   onChange: (selectedRowKeys, selectedRows) => {
-        //     console.log('Selected:', selectedRows);
-        //   },
-        // }}
       />
       
       {/* Summary statistics */}
