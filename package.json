@@ -1,7 +1,7 @@
 {
-  "name": "leetbrowse",
+  "name": "leettracker",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "homepage": "https://rjames187.github.io/leet-tracker",
   "scripts": {
