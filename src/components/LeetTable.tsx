@@ -56,6 +56,13 @@ const LeetCodeTable = () => {
           : problem
       )
     );
+
+    const stored = localStorage.getItem(`${id}`);
+    if (stored === 't') {
+      localStorage.setItem(`${id}`, 'f');
+    } else {
+      localStorage.setItem(`${id}`, 't');
+    }
   };
 
   // Define table columns

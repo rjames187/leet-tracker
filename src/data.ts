@@ -8,5 +8,12 @@ export async function getData(): Promise<LeetCodeProblem[]> {
 
   const problems: LeetCodeProblem[] = await res.json();
 
+  for (const prob of problems) {
+    const checked = localStorage.getItem(`${prob.id}`);
+    if (checked === 't') {
+      prob.completed = true;
+    }
+  }
+
   return problems;
 }
