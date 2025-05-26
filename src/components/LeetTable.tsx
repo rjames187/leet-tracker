@@ -1,54 +1,42 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { Table, Checkbox, Tag, Space, Typography, Input, Row, Col, Card, Button } from 'antd';
 import { CheckOutlined, SearchOutlined, ClearOutlined } from '@ant-design/icons';
 import type { SortOrder } from 'antd/es/table/interface';
+import type { LeetCodeProblem } from '../types';
+import { getData } from '../data';
 
 const { Title } = Typography;
 
-// Define TypeScript interfaces
-interface LeetCodeProblem {
-  id: number;
-  name: string;
-  rating: number;
-  difficulty: 'Easy' | 'Medium' | 'Hard';
-  completed: boolean;
-}
-
-// Sample LeetCode problems data
-const initialProblems: LeetCodeProblem[] = [
-  { id: 1, name: "Two Sum", rating: 1200, difficulty: "Easy", completed: false },
-  { id: 2, name: "Add Two Numbers", rating: 1400, difficulty: "Medium", completed: true },
-  { id: 3, name: "Longest Substring Without Repeating Characters", rating: 1500, difficulty: "Medium", completed: false },
-  { id: 4, name: "Median of Two Sorted Arrays", rating: 2100, difficulty: "Hard", completed: false },
-  { id: 5, name: "Longest Palindromic Substring", rating: 1600, difficulty: "Medium", completed: true },
-  { id: 6, name: "ZigZag Conversion", rating: 1300, difficulty: "Medium", completed: false },
-  { id: 7, name: "Reverse Integer", rating: 1100, difficulty: "Easy", completed: false },
-  { id: 8, name: "String to Integer (atoi)", rating: 1400, difficulty: "Medium", completed: false },
-  { id: 9, name: "Palindrome Number", rating: 1000, difficulty: "Easy", completed: true },
-  { id: 10, name: "Regular Expression Matching", rating: 2200, difficulty: "Hard", completed: false },
-  { id: 11, name: "Container With Most Water", rating: 1500, difficulty: "Medium", completed: false },
-  { id: 12, name: "Integer to Roman", rating: 1200, difficulty: "Medium", completed: false },
-  { id: 13, name: "Roman to Integer", rating: 1000, difficulty: "Easy", completed: false },
-  { id: 14, name: "Longest Common Prefix", rating: 1100, difficulty: "Easy", completed: false },
-  { id: 15, name: "3Sum", rating: 1700, difficulty: "Medium", completed: false }
-];
-
 const LeetCodeTable = () => {
-  const [problems, setProblems] = useState(initialProblems);
+  const [problems, setProblems] = useState<LeetCodeProblem[]>([]);
   const [searchKeyword, setSearchKeyword] = useState('');
   const [minRating, setMinRating] = useState<number>(1000);
   const [maxRating, setMaxRating] = useState<number>(2200);
   
   // Get global min and max ratings for reference
-  const globalMinRating = Math.min(...initialProblems.map(p => p.rating));
-  const globalMaxRating = Math.max(...initialProblems.map(p => p.rating));
+  const globalMinRating = 1000;
+  const globalMaxRating = 2000;
+
+  useEffect(() => {
+      (async () => {
+        try {
+          const data = await getData();
+          console.log('Fetched problems:', data.length);
+          setProblems(data);
+          setMinRating(Math.round(Math.min(...data.map(p => p.rating))));
+          setMaxRating(Math.round(Math.max(...data.map(p => p.rating))));
+        } catch (error) {
+          console.error('Error fetching problem data:', error);
+        }
+      })();
+  }, []);
   
   // Filter problems based on search and rating range
   const filteredProblems = useMemo(() => {
     return problems.filter(problem => {
       const matchesKeyword = problem.name.toLowerCase().includes(searchKeyword.toLowerCase()) ||
                            problem.difficulty.toLowerCase().includes(searchKeyword.toLowerCase());
-      const matchesRating = problem.rating >= minRating && problem.rating <= maxRating;
+      const matchesRating = problem.rating >= minRating - 1 && problem.rating <= maxRating + 1;
       return matchesKeyword && matchesRating;
     });
   }, [problems, searchKeyword, minRating, maxRating]);
@@ -106,6 +94,7 @@ const LeetCodeTable = () => {
       title: 'Rating',
       dataIndex: 'rating',
       key: 'rating',
+      render: (rating: number) => (<>{Math.round(rating)}</>),
       width: 120,
       // Enable sorting by rating (numeric)
       sorter: (a: LeetCodeProblem, b: LeetCodeProblem) => a.rating - b.rating,
