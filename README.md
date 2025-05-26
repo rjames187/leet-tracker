@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This is an application for tracking solved LeetCode problems while sorting by Elo ratings not available on the LeetCode website. Users can mark problems as completed and their progress is saved to local storage.
+This is an application for tracking solved LeetCode problems while sorting by Elo ratings not available on the LeetCode website. Users can mark problems as completed and their progress is saved to local storage. 2149 problems are currently supported.
 
 ## Attribution
 
