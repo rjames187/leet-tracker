@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { Table, Checkbox, Tag, Space, Typography, Input, Row, Col, Card, Button } from 'antd';
-import { CheckOutlined, SearchOutlined, ClearOutlined } from '@ant-design/icons';
+import { CheckOutlined, SearchOutlined, ClearOutlined, PlayCircleOutlined } from '@ant-design/icons';
 import type { SortOrder } from 'antd/es/table/interface';
 import type { LeetCodeProblem } from '../types';
 import { getData } from '../data';
@@ -84,7 +84,8 @@ const LeetCodeTable = () => {
         const url = `https://leetcode.com/problems/${record.slug}`;
         return (
           <Link href={url} >
-            {id} 
+            <PlayCircleOutlined />
+            {' '}{id}
           </Link>
         );
       },
