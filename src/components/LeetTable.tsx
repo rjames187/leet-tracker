@@ -85,10 +85,7 @@ const LeetCodeTable = () => {
             {text}
           </span>
         </Space>
-      ),
-      // Enable sorting by name
-      sorter: (a: LeetCodeProblem, b: LeetCodeProblem) => a.name.localeCompare(b.name),
-      sortDirections: ['ascend' as SortOrder, 'descend' as SortOrder],
+      )
     },
     {
       title: 'Rating',
