@@ -4,6 +4,7 @@ import { CheckOutlined, SearchOutlined, ClearOutlined } from '@ant-design/icons'
 import type { SortOrder } from 'antd/es/table/interface';
 import type { LeetCodeProblem } from '../types';
 import { getData } from '../data';
+import Link from 'antd/es/typography/Link';
 
 const { Title } = Typography;
 
@@ -72,6 +73,22 @@ const LeetCodeTable = () => {
       ),
       // Custom sorter for boolean values
       sorter: (a: LeetCodeProblem, b: LeetCodeProblem) => Number(a.completed) - Number(b.completed),
+      sortDirections: ['ascend' as SortOrder, 'descend' as SortOrder],
+    },
+    {
+      title: 'Link',
+      dataIndex: 'id',
+      key: 'id',
+      width: 120,
+      render: (id: number, record: LeetCodeProblem) => {
+        const url = `https://leetcode.com/problems/${record.slug}`;
+        return (
+          <Link href={url} >
+            {id} 
+          </Link>
+        );
+      },
+      sorter: (a: LeetCodeProblem, b: LeetCodeProblem) => a.id - b.id,
       sortDirections: ['ascend' as SortOrder, 'descend' as SortOrder],
     },
     {
