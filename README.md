@@ -13,3 +13,4 @@ The main addition this project makes is the ability to mark problems as complete
 
 - Filtering by problem topics
 - User-created problem lists
+- Ability to sample random problems within a specified Elo range
